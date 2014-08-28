@@ -37,10 +37,8 @@ func TestRound(t *testing.T) {
 		{-0.5000000000001, -1},
 	}
 	for i, tt := range cases {
-		got, err := Round(tt.v)
-		if err != nil {
-			t.Errorf("[%d] Round(%f) got error %q, want %d\n", i, tt.v, err, tt.want)
-		} else if got != tt.want {
+		got := Round(tt.v)
+		if got != tt.want {
 			t.Errorf("[%d] Round(%f) => %d, want %d\n", i, tt.v, got, tt.want)
 		}
 	}

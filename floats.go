@@ -2,6 +2,7 @@
 package floats
 
 import (
+	"log"
 	"strconv"
 )
 
@@ -18,17 +19,27 @@ func ParseStrings(in ...string) ([]float64, error) {
 	return result, nil
 }
 
-// Parse is a simple wrapper around strconv.ParseFloat.
+// Parse returns the string s as a float.
 func Parse(s string) (float64, error) {
 	return strconv.ParseFloat(s, 64)
 }
 
+// MustParse returns the string s parsed as a float, or panics.
+func MustParse(s string) float64 {
+	v, err := Parse(s)
+	if err != nil {
+		log.Fatalf("bad string %q: %v", s, err)
+	}
+	return v
+}
+
 // Round returns the nearest integer value to specified value v.
-func Round(v float64) (int, error) {
+func Round(v float64) int {
 	x := strconv.FormatFloat(v, 'f', 0, 64)
 	r, err := strconv.Atoi(x)
 	if err != nil {
-		return -1, err
+		// Shouldn't happen.
+		log.Fatalf("failed to parse float %f with 0 decimal values as int: %err", x, err)
 	}
-	return r, nil
+	return r
 }
