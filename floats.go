@@ -1,5 +1,5 @@
 // Package ints provides some utilities for floats.
-package floats
+package floats // import "hkjn.me/floats"
 
 import (
 	"log"
